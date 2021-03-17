@@ -4,12 +4,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from sklearn.ensemble import RandomForestClassifier
+from . forms import ApprovalForm
 
 from .apps import ModelConfig
 import pandas as pd
 
 
-@api_view(['POST'])
+# @api_view(['POST'])
 def approvereject(request):
     try:
         data = request.data
@@ -29,22 +30,26 @@ def approvereject(request):
     except ValueError as error:
         return (error.args[0])
 
-# # @api_view(["POST"])
-# def approvereject(unit):
-# 	try:
-# 		mdl=joblib.load("MyAPI/evan_loan_model.pkl")
-# 		#mydata=pd.read_excel('/Users/sahityasehgal/Documents/Coding/bankloan/test.xlsx')
-# 		# mydata=request.data
-# 		# unit=np.array(list(mydata.values()))
-# 		# unit=unit.reshape(1,-1)
-# 		scalers=joblib.load("MyAPI/scalers.pkl")
-# 		X=scalers.transform(unit)
-# 		y_pred=mdl.predict(X)
-# 		y_pred=(y_pred>0.58)
-# 		newdf=pd.DataFrame(y_pred, columns=['Status'])
-# 		newdf=newdf.replace({True:'Approved', False:'Rejected'})
-# 		K.clear_session()
-# 		return (newdf.values[0][0],X[0])
-# 		print(newdf.values[0][0],X[0])
-# 	except ValueError as e:
-# 		return (e.args[0])
+
+def cxcontact(request):
+    if request.method == 'POST':
+        form = ApprovalForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            dependents = form.cleaned_data['dependents']
+            applicant_income = form.cleaned_data['applicant_income']
+            coapplicant_income = form.cleaned_data['coapplicant_income']
+            loan_amount = form.cleaned_data['loan_amount']
+            loan_amount_term = form.cleaned_data['loan_amount_term']
+            credit_history = form.cleaned_data['credit_history']
+            gender = form.cleaned_data['gender']
+            married = form.cleaned_data['married']
+            education = form.cleaned_data['education']
+            self_employed = form.cleaned_data['self_employed']
+            property_area = form.cleaned_data['property_area']
+            print(first_name, last_name, dependents, applicant_income)
+
+    form = ApprovalForm()
+
+    return render(request, 'myform/cxform.html', {'form': form})
