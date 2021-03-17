@@ -3,13 +3,13 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
+from sklearn.ensemble import RandomForestClassifier
 
-from .apps import ModelConfig
+# from .apps import ModelConfig
 import pandas as pd
 
 
-@api_view(["POST"])
+@api_view(['GET', 'POST'])
 def approvereject(request):
     try:
         data = request.data
@@ -19,12 +19,12 @@ def approvereject(request):
             keys.append(key)
             values.append(data[key])
         X = pd.Series(values).to_numpy().reshape(1, -1)
-        loaded_classifier = ModelConfig.classifier
+        loaded_classifier = pd.read_pickle(r'app/classifier/label_model.pkl')
         y_pred = loaded_classifier.predict(X)
         y_pred = pd.Series(y_pred)
-        target_map = {0: 'setosa', 1: 'versicolor', 2: 'virginica'}
+        target_map = {0: 'Rejected', 1: 'Approved'}
         y_pred = y_pred.map(target_map).to_numpy()
-        response_dict = {"The Predicted Iris Species": y_pred[0]}
+        response_dict = {f'Your loan status is {y_pred[0]}'}
         return Response(response_dict, status=200)
     except ValueError as error:
         return (error.args[0])
