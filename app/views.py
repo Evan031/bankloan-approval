@@ -5,11 +5,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from sklearn.ensemble import RandomForestClassifier
 
-# from .apps import ModelConfig
+from .apps import ModelConfig
 import pandas as pd
 
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 def approvereject(request):
     try:
         data = request.data
@@ -19,7 +19,7 @@ def approvereject(request):
             keys.append(key)
             values.append(data[key])
         X = pd.Series(values).to_numpy().reshape(1, -1)
-        loaded_classifier = pd.read_pickle(r'app/classifier/label_model.pkl')
+        loaded_classifier = ModelConfig.classifier
         y_pred = loaded_classifier.predict(X)
         y_pred = pd.Series(y_pred)
         target_map = {0: 'Rejected', 1: 'Approved'}
