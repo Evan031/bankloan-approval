@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -25,7 +26,8 @@ def approvereject(unit):
         y_pred = pd.Series(y_pred)
         target_map = {0: 'Rejected', 1: 'Approved'}
         y_pred = y_pred.map(target_map).to_numpy()
-        response_dict = {f'Your loan status is {y_pred[0]}'}
+        response_dict = y_pred[0]
+        # response_dict = {f'Your loan status is {y_pred[0]}'}
         # return Response(response_dict, status=200)
         return response_dict
     except ValueError as error:
@@ -49,7 +51,8 @@ def cxcontact(request):
             property_area = form.cleaned_data['property_area']
             my_dict = (request.POST).dict()
             my_dict.pop('csrfmiddlewaretoken')
-            print(approvereject(my_dict))
+            answer = approvereject(my_dict)
+            messages.success(request, f'Application Status: {answer}')
 
     form = ApprovalForm()
 
