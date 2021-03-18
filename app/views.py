@@ -13,7 +13,7 @@ import pandas as pd
 # @api_view(['POST'])
 def approvereject(unit):
     try:
-        data = unit.data
+        data = unit
         keys = []
         values = []
         for key in data:
@@ -26,7 +26,8 @@ def approvereject(unit):
         target_map = {0: 'Rejected', 1: 'Approved'}
         y_pred = y_pred.map(target_map).to_numpy()
         response_dict = {f'Your loan status is {y_pred[0]}'}
-        return Response(response_dict, status=200)
+        # return Response(response_dict, status=200)
+        return response_dict
     except ValueError as error:
         return (error.args[0], status.HTTP_400_BAD_REQUEST)
 
@@ -48,7 +49,7 @@ def cxcontact(request):
             property_area = form.cleaned_data['property_area']
             my_dict = (request.POST).dict()
             my_dict.pop('csrfmiddlewaretoken')
-            approvereject(my_dict)
+            print(approvereject(my_dict))
 
     form = ApprovalForm()
 
