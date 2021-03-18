@@ -2,10 +2,6 @@ from django import forms
 
 
 class ApprovalForm(forms.Form):
-    first_name = forms.CharField(max_length=150, widget=forms.TextInput(
-        attrs={'placeholder': 'Enter Firstname'}))
-    last_name = forms.CharField(max_length=150, widget=forms.TextInput(
-        attrs={'placeholder': 'Enter Lastname'}))
     dependents = forms.IntegerField(widget=forms.NumberInput(
         attrs={'placeholder': 'Enter Number of Dependents'}))
     applicant_income = forms.IntegerField(widget=forms.NumberInput(
@@ -19,10 +15,10 @@ class ApprovalForm(forms.Form):
     credit_history = forms.ChoiceField(
         choices=[('0', 0), ('1', 1), ('2', 2), ('3', 3)])
     gender = forms.ChoiceField(
-        choices=[('Male', 'Male'), ('Female', 'Female')])
-    married = forms.ChoiceField(choices=[('Yes', 'Yes'), ('No', 'No')])
+        choices=[(1, 'Male'), (0, 'Female')])
+    married = forms.ChoiceField(choices=[(1, 'Yes'), (0, 'No')])
     education = forms.ChoiceField(
-        choices=[('Graduate', 'Graduate'), ('Not_Graduate', 'Not_Graduate')])
-    self_employed = forms.ChoiceField(choices=[('Yes', 'Yes'), ('No', 'No')])
+        choices=[(1, 'Graduate'), (0, 'Not Graduate')])
+    self_employed = forms.ChoiceField(choices=[(1, 'Yes'), (0, 'No')])
     property_area = forms.ChoiceField(
-        choices=[('Rural', 'Rural'), ('Semiurban', 'Semiurban'), ('Urban', 'Urban')])
+        choices=[(0, 'Rural'), (1, 'Semiurban'), (2, 'Urban')])

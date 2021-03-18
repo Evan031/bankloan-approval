@@ -11,14 +11,14 @@ import pandas as pd
 
 
 # @api_view(['POST'])
-def approvereject(request):
+def approvereject(unit):
     try:
-        data = request.data
+        data = unit.data
         keys = []
         values = []
         for key in data:
             keys.append(key)
-            values.append(data[key])
+            values.append(int(data[key]))
         X = pd.Series(values).to_numpy().reshape(1, -1)
         loaded_classifier = ModelConfig.classifier
         y_pred = loaded_classifier.predict(X)
@@ -28,15 +28,13 @@ def approvereject(request):
         response_dict = {f'Your loan status is {y_pred[0]}'}
         return Response(response_dict, status=200)
     except ValueError as error:
-        return (error.args[0])
+        return (error.args[0], status.HTTP_400_BAD_REQUEST)
 
 
 def cxcontact(request):
     if request.method == 'POST':
         form = ApprovalForm(request.POST)
         if form.is_valid():
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
             dependents = form.cleaned_data['dependents']
             applicant_income = form.cleaned_data['applicant_income']
             coapplicant_income = form.cleaned_data['coapplicant_income']
@@ -48,7 +46,9 @@ def cxcontact(request):
             education = form.cleaned_data['education']
             self_employed = form.cleaned_data['self_employed']
             property_area = form.cleaned_data['property_area']
-            print(first_name, last_name, dependents, applicant_income)
+            my_dict = (request.POST).dict()
+            my_dict.pop('csrfmiddlewaretoken')
+            approvereject(my_dict)
 
     form = ApprovalForm()
 
