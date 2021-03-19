@@ -38,16 +38,16 @@ def cxcontact(request):
     if request.method == 'POST':
         form = ApprovalForm(request.POST)
         if form.is_valid():
+            gender = form.cleaned_data['gender']
+            married = form.cleaned_data['married']
             dependents = form.cleaned_data['dependents']
+            education = form.cleaned_data['education']
+            self_employed = form.cleaned_data['self_employed']
             applicant_income = form.cleaned_data['applicant_income']
             coapplicant_income = form.cleaned_data['coapplicant_income']
             loan_amount = form.cleaned_data['loan_amount']
             loan_amount_term = form.cleaned_data['loan_amount_term']
             credit_history = form.cleaned_data['credit_history']
-            gender = form.cleaned_data['gender']
-            married = form.cleaned_data['married']
-            education = form.cleaned_data['education']
-            self_employed = form.cleaned_data['self_employed']
             property_area = form.cleaned_data['property_area']
             my_dict = (request.POST).dict()
             my_dict.pop('csrfmiddlewaretoken')
