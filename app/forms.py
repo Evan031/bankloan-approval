@@ -19,6 +19,6 @@ class ApprovalForm(forms.Form):
     loan_amount_term = forms.IntegerField(widget=forms.NumberInput(
         attrs={'placeholder': 'Loan Term in Months'}))
     credit_history = forms.ChoiceField(
-        choices=[('0', 0), ('1', 1), ('2', 2), ('3', 3)])
+        choices=[(0, 'Blacklisted'), (1, 'Decent'), (2, 'Good'), (3, 'Great')])
     property_area = forms.ChoiceField(
         choices=[(0, 'Rural'), (1, 'Semiurban'), (2, 'Urban')])
