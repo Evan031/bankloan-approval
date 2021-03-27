@@ -1,4 +1,4 @@
-;(function($) {
+$(document).ready(function(){
     "use strict";  
     
     //* Form js
@@ -161,4 +161,4 @@
     /*Function Calls*/  
     verificationForm ();
     nice_Select ();
-})(jQuery);
+});
