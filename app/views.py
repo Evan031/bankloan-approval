@@ -50,10 +50,10 @@ def cxcontact(request):
             credit_history = form.cleaned_data['credit_history']
             property_area = form.cleaned_data['property_area']
             my_dict = (request.POST).dict()
-            # print(my_dict)
-            my_dict.pop('csrfmiddlewaretoken')
-            answer = approvereject(my_dict)
-            messages.success(request, f'Application Status: {answer}')
+            print(my_dict)
+            # my_dict.pop('csrfmiddlewaretoken')
+            # answer = approvereject(my_dict)
+            # messages.success(request, f'Application Status: {answer}')
 
     form = ApprovalForm()
 
