@@ -1,3 +1,10 @@
+// Grab Timeline script from old-script.js
+// Use name attribute for your validation
+// Get previous validation from repo for colours
+
+
+
+
 $(document).ready(function() {
     "use strict";
 
@@ -22,7 +29,7 @@ $(document).ready(function() {
                     // The key name on the left side is the name attribute
                     // of an input field. Validation rules are defined
                     // on the right side
-                    id_dependents: "required",
+                    dependents: "required",
                     applicant_income: "required",
                     id_coapplicant_income: "required",
                     id_loan_amount: "required",
@@ -31,7 +38,7 @@ $(document).ready(function() {
                 },
                 // Specify validation error messages
                 messages: {
-                    id_dependents: "Enter amount of dependents",
+                    dependents: "Enter amount of dependents",
                     applicant_income: "Enter applicant income",
                     id_coapplicant_income: "Enter co-applicant income",
                     id_loan_amount: "Enter loan amount",
