@@ -29,7 +29,7 @@ class Model_Predict(APIView):
             loaded_classifier = ModelConfig.classifier
             y_pred = loaded_classifier.predict(X)
             y_pred = pd.Series(y_pred)
-            target_map = {0: 'Rejected', 1: 'Approved'}
+            target_map = {0: 'rejected', 1: 'approved'}
             y_pred = y_pred.map(target_map).to_numpy()
             response_dict = {"prediction:" f"{y_pred[0]}"}
             return Response(response_dict, status=200)
