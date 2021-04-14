@@ -11,7 +11,57 @@ from .apps import ModelConfig
 import pandas as pd
 
 
+class Model_Predict(APIView):
+    def post(self, request, format=None):
+        try:
+            if type(request.data) is dict:
+                data = request.data
+            else:
+                data = request.data
+                data = data.dict()
+                data.pop('csrfmiddlewaretoken')
+            keys = []
+            values = []
+            for key in data:
+                keys.append(key)
+                values.append(int(data[key]))
+            X = pd.Series(values).to_numpy().reshape(1, -1)
+            loaded_classifier = ModelConfig.classifier
+            y_pred = loaded_classifier.predict(X)
+            y_pred = pd.Series(y_pred)
+            target_map = {0: 'Rejected', 1: 'Approved'}
+            y_pred = y_pred.map(target_map).to_numpy()
+            response_dict = {"prediction:" f"{y_pred[0]}"}
+            return Response(response_dict, status=200)
+        except ValueError as error:
+            return (error.args[0], status.HTTP_400_BAD_REQUEST)
+
+
+class Pkl_Model_Predict(APIView):
+    def post(self, request, format=None):
+        if type(request.data) is dict:
+            data = request.data
+        else:
+            data = request.data
+            data = data.dict()
+            data.pop('csrfmiddlewaretoken')
+        keys = []
+        values = []
+        for key in data:
+            keys.append(key)
+            values.append(data[key])
+        X = pd.Series(values).to_numpy().reshape(1, -1)
+        loaded_classifier = NewConfig.classifier
+        y_pred = loaded_classifier.predict(X)
+        y_pred = pd.Series(y_pred)
+        target_map = {0: 'setosa', 1: 'versicolor', 2: 'virginica'}
+        y_pred = y_pred.map(target_map).to_numpy()
+        response_dict = {"prediction": y_pred[0]}
+        return Response(response_dict, status=200)
+
 # @api_view(['POST'])
+
+
 def approvereject(unit):
     try:
         data = unit
@@ -35,26 +85,4 @@ def approvereject(unit):
 
 
 def cxcontact(request):
-    if request.method == 'POST':
-        form = ApprovalForm(request.POST)
-        if form.is_valid():
-            gender = form.cleaned_data['gender']
-            married = form.cleaned_data['married']
-            dependents = form.cleaned_data['dependents']
-            education = form.cleaned_data['education']
-            self_employed = form.cleaned_data['self_employed']
-            applicant_income = form.cleaned_data['applicant_income']
-            coapplicant_income = form.cleaned_data['coapplicant_income']
-            loan_amount = form.cleaned_data['loan_amount']
-            loan_amount_term = form.cleaned_data['loan_amount_term']
-            credit_history = form.cleaned_data['credit_history']
-            property_area = form.cleaned_data['property_area']
-            my_dict = (request.POST).dict()
-            print(my_dict)
-            # my_dict.pop('csrfmiddlewaretoken')
-            # answer = approvereject(my_dict)
-            # messages.success(request, f'Application Status: {answer}')
-
-    form = ApprovalForm()
-
-    return render(request, 'myform/model-form.html', {'form': form})
+    return render(request, 'myform/model-form.html')
