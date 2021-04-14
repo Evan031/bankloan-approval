@@ -2,6 +2,20 @@
 
 @import url("https://fonts.googleapis.com/css?family=Roboto:300i,400,400i,500,700,900");
 
+
+.loading_img {
+    background-image: url("https://via.placeholder.com/350x150");
+    background-repeat: no-repeat;
+    height: 150px;
+    display: block;
+}
+
+#loan_info,
+#prediction {
+    display: none;
+}
+
+
 .multi_step_form {
     background: #f6f9fb;
     display: block;

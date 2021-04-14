@@ -31,7 +31,7 @@ class Model_Predict(APIView):
             y_pred = pd.Series(y_pred)
             target_map = {0: 'rejected', 1: 'approved'}
             y_pred = y_pred.map(target_map).to_numpy()
-            response_dict = {"prediction:" f"{y_pred[0]}"}
+            response_dict = {"prediction": f"{y_pred[0]}"}
             return Response(response_dict, status=200)
         except ValueError as error:
             return (error.args[0], status.HTTP_400_BAD_REQUEST)
