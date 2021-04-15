@@ -9,7 +9,7 @@ $(document).ready(function() {
         $(".next").click(function() {
             var form = $("#msform");
             form.validate({
-                // Specify validation rules
+                //specify validation rules
                 errorElement: 'span',
                 errorClass: 'help-block',
                 highlight: function(element, errorClass, validClass) {
@@ -19,9 +19,9 @@ $(document).ready(function() {
                     $(element).closest('.loan_input').removeClass("has-error");
                 },
                 rules: {
-                    // The key name on the left side is the name attribute
-                    // of an input field. Validation rules are defined
-                    // on the right side
+                    //The key name on the left side is the name attribute
+                    //of an input field. Validation rules are defined
+                    //on the right side
                     dependents: "required",
                     applicant_income: "required",
                     coapplicant_income: "required",
@@ -29,7 +29,7 @@ $(document).ready(function() {
                     loan_amount_term: "required",
                     credit_history: "required",
                 },
-                // Specify validation error messages
+                //specify validation error messages
                 messages: {
                     dependents: "Enter amount of dependents",
                     applicant_income: "Enter applicant income",
@@ -59,19 +59,25 @@ $(document).ready(function() {
                         dataType: 'json',
 
                         success: function(json, response) {
+                            //reset form once submitted
                             document.forms["msform"].reset();
+
+                            //sanity check
                             console.log('Post Successful')
 
+                            //json recieved is object and needs to be converted to json 
                             var obj = json
                             var myJSON = JSON.stringify(obj);
                             console.log(myJSON)
 
+                            //json is parsed, and now can be used to present data to front end
                             var jsonString = JSON.parse(myJSON);
                             var prediction = jsonString.prediction;
 
                             response = prediction
 
-
+                            //conditional statement used to determine what should 
+                            //be displayed to user based upon ml model prediction
                             if(response == 'approved') {
                                 $("#response_dict").html("<span href='#' class='don_icon'>\
                                                               <i class='ion-android-done'></i>\
@@ -84,6 +90,7 @@ $(document).ready(function() {
                                                           <h6>Your loan status is rejected!</h6>");
                             }
 
+                            //sanity check
                             console.log(response);
                         },
                         error: function(xhr, errmsg, err) {
@@ -107,6 +114,7 @@ $(document).ready(function() {
 
                 if (animating) return false;
                 animating = true;
+
                 //hide the current fieldset with style
                 current_fs.animate({
                     opacity: 0
@@ -140,6 +148,7 @@ $(document).ready(function() {
 
         });
 
+        //reload page
         $(".reload").click(function(){
             location.reload(true);
         });
@@ -189,6 +198,7 @@ $(document).ready(function() {
         $(".submit").click(function() {
             var form = $("#msform");
 
+            //conditional statement to check validity of form
             if (form.valid() === true) {
                 if ($('#loan_info').is(":visible")) {
                     current_fs = $(this).parent();
@@ -203,6 +213,7 @@ $(document).ready(function() {
 
                 if (animating) return false;
                 animating = true;
+
                 //hide the current fieldset with style
                 current_fs.animate({
                     opacity: 0
@@ -246,6 +257,8 @@ $(document).ready(function() {
     nice_Select();
 });
 
+//Ajax method to display loading spinner
+//if the prediction has not returned from the api yet
 $(document).on({
     ajaxStart: function() {
         $("#response_loading").html("<div class='container'>\

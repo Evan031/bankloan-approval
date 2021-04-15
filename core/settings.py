@@ -18,7 +18,8 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
-# reading .env file
+
+# Reading .env file
 environ.Env.read_env()
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
