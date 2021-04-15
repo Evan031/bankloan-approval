@@ -238,7 +238,13 @@ $(document).ready(function() {
 
 $(document).on({
     ajaxStart: function() {
-        $("#response_loading").html("<div class='loading_img'></div>");
+        $("#response_loading").html("<div class='container'>\
+                                        <div class='row'>\
+                                            <div class='col-12'>\
+                                                <img class='loading_img mx-auto d-block img-fluid' src='static/app/img/loading.gif'>\
+                                            </div>\
+                                        </div>\
+                                    </div>");
     },
     ajaxStop: function() {
         $("#response_loading").html("");

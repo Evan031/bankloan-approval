@@ -4,10 +4,8 @@
 
 
 .loading_img {
-    background-image: url("https://via.placeholder.com/350x150");
-    background-repeat: no-repeat;
-    height: 150px;
     display: block;
+    margin-bottom: 3%;
 }
 
 #loan_info,
@@ -210,6 +208,10 @@
     border-radius: 50%;
     color: #ffffff;
     text-align: center;
+}
+
+a.don_icon.error_icon {
+    background-color: #55163e !important;
 }
 
 .multi_step_form #msform fieldset .done_text h6 {
@@ -505,6 +507,11 @@
     .multi_step_form #msform {
         padding-top: 8%;
         height: 110vh;
+    }
+
+    .loading_img {
+        display: block;
+        margin-bottom: 6%;
     }
 }
 
