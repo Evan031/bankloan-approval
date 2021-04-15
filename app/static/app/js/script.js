@@ -71,12 +71,18 @@ $(document).ready(function() {
 
                             response = prediction
 
-                            $("#response_dict").html(`<p>${response}</p>`);
-                            // if(response > 18) {
-                            //     $("#response_dict").html(`<p>BIG NUMBER: ${response}</p>`);
-                            // } else{
-                            //     $("#response_dict").html(`<p>SMALL NUMBER: ${response}</p>`);
-                            // }
+
+                            if(response == 'approved') {
+                                $("#response_dict").html("<span href='#' class='don_icon'>\
+                                                              <i class='ion-android-done'></i>\
+                                                          </span>\
+                                                          <h6>Your loan status is approved!</h6>");
+                            } else{
+                                $("#response_dict").html("<span href='#' class='don_icon error_icon'>\
+                                                              <i class='ion-android-close'></i>\
+                                                          </span>\
+                                                          <h6>Your loan status is rejected!</h6>");
+                            }
 
                             console.log(response);
                         },
