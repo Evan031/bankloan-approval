@@ -1,0 +1,176 @@
+{% extends 'app/base_template.html' %}
+
+{% block title %}
+Loan Prediction Model Form
+{% endblock title %}
+
+{% block body_data %}
+        <!-- Multi step form -->
+        <section class="multi_step_form">
+
+            <form action="{% url 'api:predict' %}" method="POST" id="msform" class="form_style">
+                {% csrf_token %}
+                <!-- title -->
+                <div class="title">
+                    <h2>Bank Loan Approval</h2>
+                    <p>Fill in your details below to check if you would be eligible for a loan</p>
+                </div>
+                <!-- progressbar -->
+                <ul id="progressbar">
+                    <li class="active">Personal Info</li>
+                    <li>Loan Info</li>
+                    <li>Prediction</li>
+                </ul>
+                <!-- fieldsets -->
+                <fieldset id="personal_info">
+                    <h3>Personal Information</h3>
+                    <h6>Please fill in your personal details.</h6>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="id_applicant_income">Select Gender:</label>
+                                <div class="loan_input">
+                                    <select name="gender" id="id_gender" class="product_select">
+                                        <option value="1" data-display="Male">Male</option>
+                                        <option value="0">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="id_married">Select Marital Status:</label>
+                                <div class="loan_input">
+                                    <select name="married" id="id_married" class="product_select">
+                                        <option value="1" data-display="Married">Married</option>
+                                        <option value="0">Not married</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4 mb-3">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="id_dependents">Select Number of Dependents:</label>
+                                <div class="loan_input">
+                                    <input type="number" class="form-control" placeholder="Enter Number of Dependents" name="dependents" id="id_dependents">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="id_education">Education Level:</label>
+                                <div class="loan_input">
+                                    <select name="education" id="id_education" class="product_select">
+                                        <option value="1" data-display="Graduate">Graduate</option>
+                                        <option value="0">Not graduated</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="id_self_employed">Self employed:</label>
+                                <div class="loan_input">
+                                    <select name="self_employed" id="id_self_employed" class="product_select">
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="id_property_area">Property area:</label>
+                                <div class="loan_input">
+                                    <select name="property_area" id="id_property_area" class="product_select">
+                                        <option value="0" data-display="Rural">Rural</option>
+                                        <option value="1">Semiurban</option>
+                                        <option value="2">Urban</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="next action-button">Continue</button>
+                </fieldset>
+
+
+                <fieldset id="loan_info">
+                    <h3>Loan Information</h3>
+                    <h6>Please fill in your relevant loan and financial information.</h6>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="id_applicant_income">Applicant Income:</label>
+                                <div class="loan_input">
+                                    <input type="number" class="form-control" name="applicant_income" placeholder="Enter Monthly Gross Income"  id="id_applicant_income">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="id_coapplicant_income">Coapplicant Income:</label>
+                                <div class="loan_input">
+                                    <input type="number" class="form-control" name="coapplicant_income" placeholder="Enter Co-Applicant Monthly Gross Income" id="id_coapplicant_income">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-2">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="id_loan_amount">Loan Amount:</label>
+                                <div class="loan_input">
+                                    <input type="number" class="form-control" name="loan_amount" placeholder="Requested Loan Amount" id="id_loan_amount">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="id_loan_amount_term">Loan Amount Term:</label>
+                                <div class="loan_input">
+                                    <input type="number" class="form-control" name="loan_amount_term" placeholder="Loan Term in Months" id="id_loan_amount_term">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="id_credit_history">Credit history:</label>
+                                <div class="loan_input">
+                                    <select name="credit_history" id="id_credit_history" class="product_select">
+                                        <option value="0" data-display="Blacklisted">Blacklisted</option>
+                                        <option value="1">Decent</option>
+                                        <option value="2">Good</option>
+                                        <option value="3">Great</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="action-button previous previous_button">Back</button>
+                    <button type="submit" class="submit action-button" data-target="#prediction">Submit</button>
+                </fieldset>
+
+
+                <fieldset id="prediction">
+                    <h3>Prediction</h3>
+                    <h6>Below is your loan status prediction according to our machine learning model</h6>
+                    <div class="done_text">
+                        <div id="response_loading"></div>
+                        <div id="response_dict"></div>
+                    </div>
+
+                    <button type="button" class="action-button reload previous_button">Reload and Try Again?</button>
+                    <a href="https://github.com/Evan031/bankloan-approval" target="_blank" class="action-button github_link">View Source Code</a>
+                </fieldset>
+            </form>
+        </section>
+        <!-- End Multi step form -->
+{% endblock body_data %}
