@@ -24,7 +24,7 @@
     text-align: center;
     position: relative;
     padding-top: 3%;
-    height: 115vh;
+    height: 125vh;
     max-width: 70%;
     margin: 0 auto;
     background: #ffffff;
@@ -394,6 +394,7 @@
     border-radius: 5px;
     cursor: pointer;
     min-width: 130px;
+    padding: 0% 5%;
     font: 700 14px/40px "Roboto", sans-serif;
     border: 1px solid #ee2f49;
     margin: 0 5px;
@@ -506,7 +507,7 @@
 @media only screen and (max-width:768px) {
     .multi_step_form #msform {
         padding-top: 8%;
-        height: 110vh;
+        height: 102vh;
     }
 
     .loading_img {
@@ -529,6 +530,14 @@
         margin-bottom: 30px;
         overflow: hidden;
         padding: 0px;
+    }
+
+    a.action-button.github_link {
+        margin-top: 8% !important;
+    }
+
+    button.submit.action-button {
+        margin-top: 8% !important;
     }
 }
 

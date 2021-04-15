@@ -140,6 +140,10 @@ $(document).ready(function() {
 
         });
 
+        $(".reload").click(function(){
+            location.reload(true);
+        });
+
         $(".previous").click(function() {
             if (animating) return false;
             animating = true;
