@@ -3,6 +3,10 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300i,400,400i,500,700,900");
 
 
+h1 {
+    color: #5cb85c !important;
+}
+
 .loading_img {
     display: block;
     margin-bottom: 3%;
