@@ -264,7 +264,7 @@ $(document).on({
         $("#response_loading").html("<div class='container'>\
                                         <div class='row'>\
                                             <div class='col-12'>\
-                                                <img class='loading_img mx-auto d-block img-fluid' src='static/app/img/loading.gif'>\
+                                                <img class='loading_img mx-auto d-block img-fluid' src='https://stanneschurch.co.za/wp-content/uploads/portolio-assets/loading.gif'>\
                                             </div>\
                                         </div>\
                                     </div>");
