@@ -20,10 +20,10 @@ $(document).ready(function() {
                 errorElement: 'span',
                 errorClass: 'help-block',
                 highlight: function(element, errorClass, validClass) {
-                    $(element).closest('.my_input').addClass("has-error");
+                    $(element).closest('.loan_input').addClass("has-error");
                 },
                 unhighlight: function(element, errorClass, validClass) {
-                    $(element).closest('.my_input').removeClass("has-error");
+                    $(element).closest('.loan_input').removeClass("has-error");
                 },
                 rules: {
                     // The key name on the left side is the name attribute
@@ -31,19 +31,19 @@ $(document).ready(function() {
                     // on the right side
                     dependents: "required",
                     applicant_income: "required",
-                    id_coapplicant_income: "required",
-                    id_loan_amount: "required",
-                    id_loan_amount_term: "required",
-                    id_credit_history: "required",
+                    coapplicant_income: "required",
+                    loan_amount: "required",
+                    loan_amount_term: "required",
+                    credit_history: "required",
                 },
                 // Specify validation error messages
                 messages: {
                     dependents: "Enter amount of dependents",
                     applicant_income: "Enter applicant income",
-                    id_coapplicant_income: "Enter co-applicant income",
-                    id_loan_amount: "Enter loan amount",
-                    id_loan_amount_term: "Enter loan amount in months",
-                    id_credit_history: "Enter your credit history",
+                    coapplicant_income: "Enter co-applicant income",
+                    loan_amount: "Enter loan amount",
+                    loan_amount_term: "Enter loan amount in months",
+                    credit_history: "Enter your credit history",
                 },
                 submitHandler: function(form) {
                     $.ajax({
@@ -103,6 +103,9 @@ $(document).ready(function() {
                 //show the next fieldset
                 next_fs.show();
 
+                //activate next step on progressbar using the index of next_fs
+                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
                 if (animating) return false;
                 animating = true;
                 //hide the current fieldset with style
@@ -144,6 +147,9 @@ $(document).ready(function() {
 
             current_fs = $(this).parent();
             previous_fs = $(this).parent().prev();
+
+            //de-activate current step on progressbar
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
             //show the previous fieldset
             previous_fs.show();
@@ -188,6 +194,9 @@ $(document).ready(function() {
 
                 //show the next fieldset
                 next_fs.show();
+
+                //activate next step on progressbar using the index of next_fs
+                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
                 if (animating) return false;
                 animating = true;
