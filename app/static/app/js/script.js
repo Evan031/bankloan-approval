@@ -1,10 +1,3 @@
-// Grab Timeline script from old-script.js
-// Use name attribute for your validation
-// Get previous validation from repo for colours
-
-
-
-
 $(document).ready(function() {
     "use strict";
 
@@ -49,7 +42,7 @@ $(document).ready(function() {
                     $.ajax({
                         type: form.method,
                         url: form.action,
-                        data: {	
+                        data: {
                             gender: $('#id_gender').val(),
                             married: $('#id_married').val(),
                             dependents: $('#id_dependents').val(),
@@ -234,13 +227,13 @@ $(document).ready(function() {
     });
 
     //* Select js
-    function nice_Select(){
-        if ( $('.product_select').length ){ 
+    function nice_Select() {
+        if ($('.product_select').length) {
             $('select').niceSelect();
         };
-    }; 
-    /*Function Calls*/  
-    nice_Select ();
+    };
+    /*Function Calls*/
+    nice_Select();
 });
 
 $(document).on({
