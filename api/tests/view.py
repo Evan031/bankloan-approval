@@ -3,6 +3,8 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+# API Test to confirm response of HTTP 200
+
 
 class API_TestCase(APITestCase):
 
