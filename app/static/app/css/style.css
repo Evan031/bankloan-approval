@@ -450,7 +450,7 @@
 @media only screen and (min-width: 2560px) {
     body .multi_step_form #msform {
         padding-top: 7%;
-        height: 115vh;
+        height: 100vh;
         max-width: 70%;
     }
 }
